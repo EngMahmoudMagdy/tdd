@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:number_trivia/core/utils/input_converter.dart';
@@ -41,5 +42,18 @@ void main() {
     final tNumberParsed = int.parse(tNumberString);
     // NumberTrivia instance is needed too, of course
     final tNumberTrivia = NumberTrivia(number: 1, text: 'test trivia');
+    test(
+      'should call the InputConverter to validate and convert the string to an unsigned integer',
+          () async {
+        // arrange
+        when(mockInputConverter.stringToUnsignedInteger(any))
+            .thenReturn(Right(tNumberParsed));
+        // act
+        bloc.dispatch(GetTriviaForConcreteNumber(tNumberString));
+        await untilCalled(mockInputConverter.stringToUnsignedInteger(any));
+        // assert
+        verify(mockInputConverter.stringToUnsignedInteger(tNumberString));
+      },
+    );
   });
 }
