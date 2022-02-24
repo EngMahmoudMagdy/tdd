@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:http/http.dart';
+import 'package:http_interceptor/http_client_with_interceptor.dart';
 import 'package:number_trivia/core/error/exceptions.dart';
 import 'package:number_trivia/features/number_trivia/data/models/number_trivia_model.dart';
 
@@ -11,17 +11,17 @@ abstract class NumberTriviaRemoteDataSource {
 }
 
 class NumberTriviaRemoteDataSourceImpl implements NumberTriviaRemoteDataSource {
-  final Client httpClient;
+  final HttpClientWithInterceptor httpClient;
 
   NumberTriviaRemoteDataSourceImpl(this.httpClient);
 
   @override
   Future<NumberTriviaModel> getConcreteNumberTrivia(int number) async =>
-      _getTrivia('numbersapi.com/$number?json');
+      _getTrivia('http://numbersapi.com/$number?json');
 
   @override
   Future<NumberTriviaModel> getRandomNumberTrivia() async =>
-      _getTrivia('numbersapi.com/random');
+      _getTrivia('http://numbersapi.com/random');
 
   Future<NumberTriviaModel> _getTrivia(String url) async {
     final response = await httpClient.get(

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
+import 'package:http_interceptor/http_client_with_interceptor.dart';
 import 'package:mockito/mockito.dart';
 import 'package:number_trivia/core/error/exceptions.dart';
 import 'package:number_trivia/features/number_trivia/data/datasources/number_trivia_remote_data_source.dart';
@@ -9,7 +10,7 @@ import 'package:number_trivia/features/number_trivia/data/models/number_trivia_m
 
 import '../../../../fixtures/fixture_reader.dart';
 
-class MockHttpClient extends Mock implements Client {}
+class MockHttpClient extends Mock implements HttpClientWithInterceptor {}
 
 void main() {
   MockHttpClient mockHttpClient;

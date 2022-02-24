@@ -41,6 +41,8 @@ class NumberTriviaRepoImpl implements NumberTriviaRepo {
         return Right(remoteTrivia);
       } on ServerException {
         return Left(ServerFailure());
+      } catch (e) {
+        return Left(ServerFailure());
       }
     } else {
       try {
